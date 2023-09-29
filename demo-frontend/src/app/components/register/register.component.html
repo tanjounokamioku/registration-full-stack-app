@@ -1,0 +1,89 @@
+<form
+  (ngSubmit)="onSubmit()"
+  class="registration-form"
+  [formGroup]="registrationForm"
+>
+  <h2 class="form-title">Registration Form</h2>
+
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input id="name" formControlName="name" class="form-control" />
+    <div
+      *ngIf="
+        registrationForm.get('name')?.invalid &&
+        registrationForm.get('name')?.touched
+      "
+      class="text-danger"
+    >
+      Name is required and must be at least 3 characters.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input id="email" formControlName="email" class="form-control" />
+    <div
+      *ngIf="
+        registrationForm.get('email')?.invalid &&
+        registrationForm.get('email')?.touched
+      "
+      class="text-danger"
+    >
+      Please enter a valid email address.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        registrationForm.get('password')?.invalid &&
+        registrationForm.get('password')?.touched
+      "
+      class="text-danger"
+    >
+      Password is required and must be at least 8 characters.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="confirmPassword">Confirm Password:</label>
+    <input
+      type="password"
+      id="confirmPassword"
+      formControlName="confirmPassword"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        registrationForm.get('confirmPassword')?.invalid &&
+        registrationForm.get('confirmPassword')?.touched
+      "
+      class="text-danger"
+    >
+      Passwords must match.
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-primary submit-btn"
+    [disabled]="registrationForm.invalid"
+    [class.disabled-button]="registrationForm.invalid"
+  >
+    Register
+  </button>
+</form>
+
+<div *ngIf="registrationSuccess" class="alert alert-success mt-3">
+  Successfully registered!
+</div>
+<div *ngIf="registrationFailed" class="alert alert-danger mt-3">
+  Registration failed! Please try again.
+</div>
